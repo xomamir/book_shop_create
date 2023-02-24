@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            border: 1px solid black;
+            padding: 15px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/" method="post">
+        <input type="text" name="search" id="search">
+        <input type="submit" value="Find">
+    </form>
+    {% for i, b in ctx_books %}
+        <div class="card">
+            <h1>{{ b.title }}</h1>
+            <h2>{{ b.description }}</h2>
+            <h2>{{ b.price }}</h2>
+            <!-- <h2>{{ b.rate }}</h2> -->
+            <a href="/{{i}}">More info</a>
+        </div>
+    {% endfor %}
+</body>
+</html>
