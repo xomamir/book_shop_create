@@ -42,33 +42,25 @@ def main_page():
 
 @app.route('/create', methods=['GET','POST'])
 def create():
-    if request.method == "GET":
-        return render_template(
-            template_name_or_list="newBook.html",
-            ctx_books=enumerate(books)
-        )
+    result: list[Book] = []
     if request.method == "POST":
-            book = Book(
+        book = Book(
                 title=request.form.get('title'),
                 description=request.form.get('description'),
                 price=request.form.get('price'),
                 list_count=request.form.get('list_count'),
-                rate_list=[5]
+                rate_list=[
+                    int(i)
+                    for i in request.form.get("rate_list")
+                ]
             )
-            books.append(book)
-    return render_template(
-                template_name_or_list='index.html',
-            )
-@app.route('/<id>')
-def current_book(id: str):
-    try:
-        return render_template(
-            template_name_or_list="book.html",
-            ctx_book=books[int(id)]
-        )
-    except:
-        return "Произошла ошибка"
+        books.append(book)
+        result.append(book)
 
+    return render_template(
+                template_name_or_list='newBook.html',
+                ctx_books = enumerate(result)
+            )
 
 if __name__ == '__main__':
     _: int
